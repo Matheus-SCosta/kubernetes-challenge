@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: # metadata do deployment
+  name: atividade-kubernetes
+spec:
+  template:
+    metadata:  # metadata do pod dentro do deployment
+      name: atividade-kubernetes
+      labels:
+        app: atividade-kubernetes
+    spec:
+      containers:
+        - env:
+          name: atividade-kubernetes
+          image: atvk8s:1.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          envFrom:
+            - configMapRef:
+                name: atividade-kubernetes-configmap
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atividade-kubernetes                    
